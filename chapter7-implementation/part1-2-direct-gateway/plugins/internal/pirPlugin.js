@@ -23,14 +23,20 @@ exports.stop = function () { //#A
   console.info('%s plugin stopped!', pluginName);
 };
 
+var oldValue = 0;
 function connectHardware() { //#B
   var Gpio = require('onoff').Gpio;
   sensor = new Gpio(model.gpio, 'in', 'both'); //#C
-  sensor.watch(function (err, value) { //#D
-    if (err) exit(err);
-    model.value = !!value;
-    showValue();
-  });
+  
+  interval = setInterval(function () { //#C
+  var value = sensor.readSync(); //#D
+	  if(oldValue !== value) {
+		model.value = !!value;
+    		showValue();
+		oldValue = value;
+  	  }
+  }, 500); //setInterval
+	    
   console.info('Hardware %s sensor started!', pluginName);
 };
 

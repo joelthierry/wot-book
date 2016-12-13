@@ -34,7 +34,8 @@ function observe(what) {
 
 function switchOnOff(value) {
   if (!localParams.simulate) {
-    actuator.write(value === true ? 1 : 0, function () { //#C
+	console.info('Switching LED status');
+    actuator.write((value === 'true') ? 1 : 0, function () { //#C
       console.info('Changed value of %s to %s', pluginName, value);
     });
   }

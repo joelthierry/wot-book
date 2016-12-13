@@ -1,3 +1,4 @@
+
 // Final version
 var express = require('express'),
   actuatorsRoutes = require('./../routes/actuators'),
@@ -54,5 +55,4 @@ module.exports = app;
 //#C Enable CORS support (see section 6.1.5)
 //#D Binds your routes to the Express application; bind them to /pi/actuators/... and /pi/sensors/...
 //#E Create a default route for /pi
-
 */

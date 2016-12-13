@@ -1,10 +1,15 @@
 var Gpio = require('onoff').Gpio,
   sensor = new Gpio(17, 'in', 'both');    //#A
 
-sensor.watch(function (err, value) { //#B
-  if (err) exit(err);
-  console.log(value ? 'there is someone!' : 'not anymore!');
-});
+
+var oldValue = 0;
+interval = setInterval(function () { //#C
+    var value = sensor.readSync(); //#D
+    if(oldValue !== value) {
+	console.log(value ? 'there is someone!' : 'not anymore!');
+	oldValue = value;
+    }
+}, 500);
 
 function exit(err) {
   if (err) console.log('An error occurred: ' + err);

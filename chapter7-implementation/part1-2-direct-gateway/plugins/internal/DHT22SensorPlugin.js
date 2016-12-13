@@ -26,12 +26,15 @@ exports.stop = function () {
 
 function connectHardware() {
  var sensorDriver = require('node-dht-sensor');
+ console.info('DHT-Driver loaded');
   var sensor = {
     initialize: function () {
+	console.info('DHT-Sensor initialized');
       return sensorDriver.initialize(22, model.temperature.gpio); //#A
     },
     read: function () {
       var readout = sensorDriver.read(); //#B
+	console.info('values read');
       model.temperature.value = parseFloat(readout.temperature.toFixed(2));
       model.humidity.value = parseFloat(readout.humidity.toFixed(2)); //#C
       showValue();

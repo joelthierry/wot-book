@@ -7,16 +7,19 @@ module.exports = function() { //#B
     console.info('Representation converter middleware called!');
 
     if (req.result) { //#C
-      if (req.accepts('json')) { //#D
-        console.info('JSON representation selected!');
-        res.send(req.result);
-        return;
-      }
+	//console.info('Akzeptiert: %s', req.accepts);
+      
 
-      if (req.accepts('html')) {
+      if (req.accepts('text/html')) {
         console.info('HTML representation selected!');
         var transform = {'tag': 'div', 'html': '${name} : ${value}'};
         res.send(json2html.transform(req.result, transform)); //#E
+        return;
+      }
+
+      if (req.accepts('json')) { //#D
+        console.info('JSON representation selected!');
+        res.send(req.result);
         return;
       }
 
